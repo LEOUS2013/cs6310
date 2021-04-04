@@ -1,0 +1,61 @@
+
+
+guide to set up mysql docker for your locate use
+
+1, if there is not mysql docker image in your docker,
+Please pull the latest one with this command
+
+docker pull mysql:latest
+__________________________________________________________________________
+
+
+2, After downloaded the images
+Please use this command to run the images:
+
+
+docker run -id \
+-p 3308:3306 \
+--name=group40_mysql \
+-v $PWD/conf:/etc/mysql/conf.d \
+-v $PWD/logs:/logs \
+-v $PWD/data:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=root \
+-e MYSQL_DATABASE=sad \
+mysql:latest \
+--character-set-server=utf8mb4 \
+--collation-server=utf8mb4_unicode_ci
+
+
+This command will make the port mapping with mysql(3306) and the host(3308)
+
+The Mysql username and password are set as bellow:
+username: root
+password: root
+
+It will make a database schema in mysql named: sad
+we are going to create tables in the sad schema
+
+It also create some share folders between mysql and the host.
+
+__________________________________________________________________________
+
+3. After those two commands, please go to java/resources/application.properties
+look for this statement:
+
+spring.datasource.url=jdbc:mysql://localhost:3308/sad
+
+change the IP as you need.
+if you are using docker on your PC, then it do not need to be changed
+
+
+
+__________________________________________________________________________
+
+4, Run the program.
+open the browse with this address: http://localhost:8080/
+you will see: "A starter for Group40 project"
+
+Check if the sad schema has created tables(admin, demo, event, stream) automatically
+
+if it does, your setting is all done
+if not, let me know if you have any questions.
