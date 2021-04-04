@@ -10,7 +10,8 @@ __________________________________________________________________________
 
 
 2, After downloaded the images
-Please use this command to run the images:
+make a folder at where you want to put the mysql's data, navigate the terminal to that folder
+then use this command to run the images:
 
 
 docker run -id \
@@ -24,6 +25,10 @@ docker run -id \
 mysql:latest \
 --character-set-server=utf8mb4 \
 --collation-server=utf8mb4_unicode_ci
+
+or use this command:
+
+docker run -id -p 3308:3306 --name=group40_mysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=sad mysql:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 
 This command will make the port mapping with mysql(3306) and the host(3308)
